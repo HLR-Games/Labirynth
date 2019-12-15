@@ -61,7 +61,7 @@ public class GdxGame extends ApplicationAdapter {
     // Game screen ---------------------------------------------------------------------------------
     public void gameScreen(){
         //Gérer les inputs du jeu
-        mainMenuInput();
+        gameScreenInput();
         //Gérer l'affichage du jeu
         gameScreenDisp();
     }

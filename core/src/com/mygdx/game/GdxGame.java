@@ -82,6 +82,7 @@ public class GdxGame extends ApplicationAdapter {
         //Gérer l'affichage du menu de fin de partie
         gameScreenDisp(); // Afficher d'abord l'écran du jeu
         gameEndDisp(); // Rajouter le menu de fin jeu par dessus
+        //heyyyyyy
     }
 
     // DISPLAY =====================================================================================
@@ -125,5 +126,6 @@ public class GdxGame extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
+		//test
 	}
 }

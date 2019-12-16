@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Enum.Screen;
 
@@ -13,12 +14,23 @@ public class GdxGame extends ApplicationAdapter {
 	Texture img;
 
 	public int appState = Screen.MAIN_MENU;
+	public Sprite btn;
+	public float xposBtn1;
+	public float yposBtn1;
 
 
 	// INITIALISATION ==============================================================================
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+
+		btn = new Sprite(new Texture(Gdx.files.internal("bouton.png")));
+
+		btn.setSize(250, 500);
+
+		xposBtn1 = 200;
+		yposBtn1 = 200;
+
 
 	}
 
@@ -88,9 +100,14 @@ public class GdxGame extends ApplicationAdapter {
 	// Screens -------------------------------------------------------------------------------------
 	public void gameScreenDisp(){
 
+
+
 	}
 
 	public void mainMenuDisp(){
+
+	    btn.setPosition(xposBtn1,yposBtn1);
+	    btn.draw(batch);
 
 	}
 

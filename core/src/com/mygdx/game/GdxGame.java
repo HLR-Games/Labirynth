@@ -4,8 +4,10 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Enum.Screen;
@@ -16,6 +18,7 @@ public class GdxGame extends ApplicationAdapter {
 
 	public int appState = Screen.MAIN_MENU;
 
+	public BitmapFont font;
 
 	public Sprite btn1;
 	public Sprite btn2;
@@ -101,6 +104,10 @@ public class GdxGame extends ApplicationAdapter {
         xposBtn3 = xUnite(176);
         yposBtn3 = yUnite(74);
 
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(xUnite(1), yUnite(1));
+
 
 	}
 
@@ -170,7 +177,7 @@ public class GdxGame extends ApplicationAdapter {
 	// Screens -------------------------------------------------------------------------------------
 	public void gameScreenDisp(){
 
-
+        font.draw(batch, "GAME STARTED", xUnite(240), yUnite(160));
 
 	}
 
@@ -233,7 +240,7 @@ public class GdxGame extends ApplicationAdapter {
             public boolean touchUp(int x, int y, int pointer, int bouton) {
                 if (x > xUnite(180) && x < xUnite(300) && y < yUnite(88) && y > yUnite(40)) {
                     // le bouton 1 (startGame) a été cliqué
-                    page = 1;
+                    appState = Screen.GAME_SCREEN;
                 }
                 if (x > xUnite(180) && x < xUnite(300) && y > yUnite(115) && y < yUnite(160)) {
                     // le bouton 2 (Options) a été cliqué

@@ -20,27 +20,37 @@ public class GdxGame extends ApplicationAdapter {
 
 	public BitmapFont font;
 
-	public Sprite btn1;
-	public Sprite btn2;
-	public Sprite btn3;
+	public Sprite btnPlay;
+	public Sprite btnCollection;
+	public Sprite btnLeaderboards;
+	public Sprite btnPause;
+	public Sprite btnQuit;
 
-    public Sprite btn1clicked;
-    public Sprite btn2clicked;
-    public Sprite btn3clicked;
+    public Sprite btnPlayClicked;
+    public Sprite btnCollectionClicked;
+    public Sprite btnLeaderboardsClicked;
+    public Sprite btnPauseClicked;
+    public Sprite btnQuitClicked;
 
     public float largeur_ecran;
     public float hauteur_ecran;
 
-	public float xposBtn1;
-	public float yposBtn1;
-    public float xposBtn2;
-    public float yposBtn2;
-    public float xposBtn3;
-    public float yposBtn3;
+	public float xposBtnPlay;
+	public float yposBtnPlay;
+    public float xposBtnCollection;
+    public float yposBtnCollection;
+    public float xposBtnLeaderboards;
+    public float yposBtnLeaderboards;
+    public float xposBtnPause;
+    public float yposBtnPause;
+    public float xposBtnQuit;
+    public float yposBtnQuit;
 
-    public boolean cliqueBouton1;
-    public boolean cliqueBouton2;
-    public boolean cliqueBouton3;
+    public boolean cliqueBtnPlay;
+    public boolean cliqueBtnCollection;
+    public boolean cliqueBtnLeaderboards;
+    public boolean cliqueBtnPause;
+    public boolean cliqueBtnQuit;
 
     public int page;
 
@@ -54,7 +64,7 @@ public class GdxGame extends ApplicationAdapter {
 
     private float yUnite(float y)
     {
-        return y*hauteur_ecran/320;
+        return y*hauteur_ecran/320f;
     }
 
     // INITIALISATION ==============================================================================
@@ -67,48 +77,50 @@ public class GdxGame extends ApplicationAdapter {
         hauteur_ecran = Gdx.graphics.getHeight();
 
 
-		btn1 = new Sprite(new Texture(Gdx.files.internal("bouton.png")));
-
-		btn2 = new Sprite(new Texture(Gdx.files.internal("bouton.png")));
-
-		btn3 = new Sprite(new Texture(Gdx.files.internal("bouton.png")));
-
-
-        btn1clicked = new Sprite(new Texture(Gdx.files.internal("boutonclique.png")));
-
-        btn2clicked = new Sprite(new Texture(Gdx.files.internal("boutonclique.png")));
-
-        btn3clicked = new Sprite(new Texture(Gdx.files.internal("boutonclique.png")));
+		btnPlay = new Sprite(new Texture(Gdx.files.internal("playButton.png")));
+		btnCollection = new Sprite(new Texture(Gdx.files.internal("collection.png")));
+		btnLeaderboards = new Sprite(new Texture(Gdx.files.internal("leaderboards.png")));
+        btnPause = new Sprite(new Texture(Gdx.files.internal("Pause.png")));
+        btnQuit = new Sprite(new Texture(Gdx.files.internal("Quit.png")));
 
 
-
-        btn1.setSize(xUnite(128), yUnite(64));
-
-		btn2.setSize(xUnite(128), yUnite(64));
-
-		btn3.setSize(xUnite(128), yUnite(64));
-
-        btn1clicked.setSize(xUnite(128), yUnite(64));
-
-        btn2clicked.setSize(xUnite(128), yUnite(64));
-
-        btn3clicked.setSize(xUnite(128), yUnite(64));
+        btnPlayClicked = new Sprite(new Texture(Gdx.files.internal("boutonclique.png")));
+        btnCollectionClicked = new Sprite(new Texture(Gdx.files.internal("boutonclique.png")));
+        btnLeaderboardsClicked = new Sprite(new Texture(Gdx.files.internal("boutonclique.png")));
+        btnPauseClicked = new Sprite(new Texture(Gdx.files.internal("Resume.png")));
 
 
-        xposBtn1 = xUnite(176);
-		yposBtn1 = yUnite(223);
+        btnPlay.setSize(xUnite(128), yUnite(64));
+		btnCollection.setSize(xUnite(128), yUnite(64));
+		btnLeaderboards.setSize(xUnite(128), yUnite(64));
+        btnPause.setSize(xUnite(32), yUnite(32));
+        btnQuit.setSize(xUnite(64), yUnite(64));
 
-        xposBtn2 = xUnite(176);
-        yposBtn2 = yUnite(150);
+        btnPlayClicked.setSize(xUnite(64), yUnite(64));
+        btnCollectionClicked.setSize(xUnite(128), yUnite(64));
+        btnLeaderboardsClicked.setSize(xUnite(128), yUnite(64));
+        btnPauseClicked.setSize(xUnite(32), yUnite(32));
 
-        xposBtn3 = xUnite(176);
-        yposBtn3 = yUnite(74);
+        xposBtnPlay = xUnite(176);
+		yposBtnPlay = yUnite(223);
+
+        xposBtnCollection = xUnite(176);
+        yposBtnCollection = yUnite(150);
+
+        xposBtnLeaderboards = xUnite(176);
+        yposBtnLeaderboards = yUnite(74);
+
+        xposBtnPause = xUnite(448);
+        yposBtnPause = yUnite(288);
+
+        xposBtnQuit = xUnite(208);
+        yposBtnQuit = yUnite(64);
 
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         font.getData().setScale(xUnite(1), yUnite(1));
 
-
+        //Ajouter les propriétés et le sprite de btnQuitClicked
 	}
 
 
@@ -131,6 +143,10 @@ public class GdxGame extends ApplicationAdapter {
             case Screen.GAME_END:
                 gameEnd();
                 break;
+            case Screen.LOOT_SCREEN:
+                lootScreen();
+                break;
+
         }
 
 		batch.end();
@@ -173,9 +189,27 @@ public class GdxGame extends ApplicationAdapter {
         gameEndDisp(); // Rajouter le menu de fin jeu par dessus
     }
 
+    //Loot screen ----------------------------------------------------------------------------------
+    public void lootScreen(){ //Gérer l'achat et l'ouverture des lootboxes
+        //Gère les inputs de l'écran des loots
+        lootScreenInputs();
+        //Gère les l'affichage de l'écran des loots
+        lootScreenDisp();
+    }
+
     // DISPLAY =====================================================================================
 	// Screens -------------------------------------------------------------------------------------
 	public void gameScreenDisp(){
+
+        if (!cliqueBtnPause){
+            btnPause.setPosition(xposBtnPause, yposBtnPlay);
+            btnPause.draw(batch);
+        }
+        else
+        {
+            btnPauseClicked.setPosition(xposBtnPause, yposBtnPlay);
+            btnPauseClicked.draw(batch);
+        }
 
         font.draw(batch, "GAME STARTED", xUnite(240), yUnite(160));
 
@@ -184,51 +218,129 @@ public class GdxGame extends ApplicationAdapter {
 	public void mainMenuDisp(){
 
         // bouton 1
-        if(!cliqueBouton1)
+        if(!cliqueBtnPlay)
         {
-            btn1.setPosition(xposBtn1, yposBtn1);// fixer la position
-            btn1.draw(batch);                          // puis le dessiner
+            btnPlay.setPosition(xposBtnPlay, yposBtnPlay);// fixer la position
+            btnPlay.draw(batch);                          // puis le dessiner
         }else
         {
-            btn1clicked.setPosition(xposBtn1, yposBtn1);
-            btn1clicked.draw(batch);
+            btnPlayClicked.setPosition(xposBtnPlay, yposBtnPlay);
+            btnPlayClicked.draw(batch);
         }
 
         // bouton 2
-        if(!cliqueBouton2)
+        if(!cliqueBtnCollection)
         {
-            btn2.setPosition(xposBtn2, yposBtn2);// fixer la position
-            btn2.draw(batch);                          // puis le dessiner
+            btnCollection.setPosition(xposBtnCollection, yposBtnCollection);// fixer la position
+            btnCollection.draw(batch);                          // puis le dessiner
         }else
         {
-            btn2clicked.setPosition(xposBtn2, yposBtn2);
-            btn2clicked.draw(batch);
+            btnCollectionClicked.setPosition(xposBtnCollection, yposBtnCollection);
+            btnCollectionClicked.draw(batch);
         }
 
         // bouton 3
-        if(!cliqueBouton3)
+        if(!cliqueBtnLeaderboards)
         {
-            btn3.setPosition(xposBtn3, yposBtn3);// fixer la position
-            btn3.draw(batch);                          // puis le dessiner
+            btnLeaderboards.setPosition(xposBtnLeaderboards, yposBtnLeaderboards);// fixer la position
+            btnLeaderboards.draw(batch);                          // puis le dessiner
         }else
         {
-            btn2clicked.setPosition(xposBtn3, yposBtn3);
-            btn2clicked.draw(batch);
+            btnCollectionClicked.setPosition(xposBtnLeaderboards, yposBtnLeaderboards);
+            btnCollectionClicked.draw(batch);
         }
 
 	}
 
     public void gamePauseDisp(){
 
+        if (!cliqueBtnPause){
+            btnPause.setPosition(xposBtnPause, yposBtnPlay);
+            btnPause.draw(batch);
+        }
+        else
+        {
+            btnPauseClicked.setPosition(xposBtnPause, yposBtnPlay);
+            btnPauseClicked.draw(batch);
+        }
+
+        if (!cliqueBtnQuit){
+            btnQuit.setPosition(xposBtnQuit, yposBtnQuit);
+            btnQuit.draw(batch);
+        }
+        else
+        {
+
+        }
+
+
+
+
+        font.draw(batch, "PAUSE SCREEN", xUnite(240), yUnite(160));
     }
 
     public void gameEndDisp(){
 
     }
 
+    public void lootScreenDisp(){
+        font.draw(batch, "OPEN YOUR LOOTS", xUnite(240), yUnite(160));
+    }
+
     // INPUTS ======================================================================================
     // Screens -------------------------------------------------------------------------------------
     public void gameScreenInput(){
+
+        Gdx.input.setInputProcessor(new InputProcessor() {
+
+            @Override
+            public boolean keyDown(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyUp(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyTyped(char character) {
+                return false;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+                if (screenX > xUnite(448) && screenY < yUnite(288))
+                    cliqueBtnPause = true;
+
+                return false;
+            }
+
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+                if (screenX > xUnite(448) && screenY < yUnite(288))
+                    appState = Screen.GAME_PAUSE;
+
+                    return false;
+            }
+
+            @Override
+            public boolean touchDragged(int screenX, int screenY, int pointer) {
+                return false;
+            }
+
+            @Override
+            public boolean mouseMoved(int screenX, int screenY) {
+                return false;
+            }
+
+            @Override
+            public boolean scrolled(int amount) {
+                return false;
+            }
+        });
 
     }
 
@@ -243,8 +355,8 @@ public class GdxGame extends ApplicationAdapter {
                     appState = Screen.GAME_SCREEN;
                 }
                 if (x > xUnite(180) && x < xUnite(300) && y > yUnite(115) && y < yUnite(160)) {
-                    // le bouton 2 (Options) a été cliqué
-                    page = 2;
+                    // le bouton 2 (Loot) a été cliqué
+                    appState = Screen.LOOT_SCREEN;
                 }
 
                 if (x > xUnite(180) && x < xUnite(300) && y > yUnite(190) && y < yUnite(235)) {
@@ -256,9 +368,9 @@ public class GdxGame extends ApplicationAdapter {
                     page = 0;
                 }
 
-                cliqueBouton1 = false;
-                cliqueBouton2 = false;
-                cliqueBouton3 = false;
+                cliqueBtnPlay   = false;
+                cliqueBtnCollection = false;
+                cliqueBtnLeaderboards = false;
 
                 return false;
             }
@@ -268,15 +380,15 @@ public class GdxGame extends ApplicationAdapter {
 
                 if(x>xUnite(180) && x < xUnite(300) && y>yUnite(40) && y<yUnite(88) )
                 {
-                    cliqueBouton1=true;
+                    cliqueBtnPlay  =true;
                 }
                 if(x>xUnite(180) && x < xUnite(300) && y>yUnite(115) && y<yUnite(160))
                 {
-                    cliqueBouton2=true;
+                    cliqueBtnCollection=true;
                 }
                 if(x>xUnite(180) && x < xUnite(300) && y>yUnite(190) && y<yUnite(235))
                 {
-                    cliqueBouton3=true;
+                    cliqueBtnLeaderboards=true;
                 }
                 return false;
             }
@@ -316,9 +428,70 @@ public class GdxGame extends ApplicationAdapter {
 
     public void gamePauseInput(){
 
+        Gdx.input.setInputProcessor(new InputProcessor() {
+
+            @Override
+            public boolean keyDown(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyUp(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyTyped(char character) {
+                return false;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+                if (screenX > xUnite(448) && screenY < yUnite(288))
+                    cliqueBtnPause = false;
+                if (screenX > xUnite(208) && screenX < xUnite(272) && screenY < yUnite(288) && screenY > yUnite(224))
+                    cliqueBtnQuit = false;
+
+                return false;
+            }
+
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+                if (screenX > xUnite(448) && screenY < yUnite(288))
+                    appState = Screen.GAME_SCREEN;
+
+                if (screenX > xUnite(208) && screenX < xUnite(272) && screenY < yUnite(256) && screenY > yUnite(192))
+                    appState = Screen.MAIN_MENU;
+
+
+                return false;
+            }
+
+            @Override
+            public boolean touchDragged(int screenX, int screenY, int pointer) {
+                return false;
+            }
+
+            @Override
+            public boolean mouseMoved(int screenX, int screenY) {
+                return false;
+            }
+
+            @Override
+            public boolean scrolled(int amount) {
+                return false;
+            }
+        });
+
     }
 
     public void gameEndInput(){
+
+    }
+
+    public void lootScreenInputs(){
 
     }
 

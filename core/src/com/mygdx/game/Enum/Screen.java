@@ -5,4 +5,5 @@ public abstract class Screen {
     public static final int GAME_SCREEN = 1;
     public static final int GAME_PAUSE = 2;
     public static final int GAME_END = 3;
+    public static final int LOOT_SCREEN = 4;
 }
